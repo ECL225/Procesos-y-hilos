@@ -6,7 +6,8 @@ public class cFilPrincipal {
         System.out.println ("Fil principal iniciat.");
         System.out.println ("Fil secundari iniciat.");
 
-        cFil vObjecteFil = new cFil ("#1");
+        cFil vObjecteFil = new cFil ("#2");
+        vObjecteFil.sTemporitzacio(1000);
         //alternativa: innecessari
         Thread vFil = new Thread (vObjecteFil);
 
