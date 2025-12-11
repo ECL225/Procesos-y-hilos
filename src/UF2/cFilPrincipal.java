@@ -16,7 +16,7 @@ public class cFilPrincipal {
 
         try {
             for (int vComptador = 0; vComptador < 10; vComptador ++) {
-                Thread.sleep(500);
+                vFil.join();
                 System.out.println("Despertant aturada " + vComptador + " procès principal");
             }
         }
