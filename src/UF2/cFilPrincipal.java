@@ -9,7 +9,7 @@ public class cFilPrincipal {
         cFil vObjecteFil = new cFil ("#1");
         //alternativa: innecessari
         Thread vFil = new Thread (vObjecteFil);
-
+        vObjecteFil.sTemporitzacio(100);
         //alternativa: vObjecteFil
         vFil.start ();
         System.out.println ("Iniciant execució procés principal");
