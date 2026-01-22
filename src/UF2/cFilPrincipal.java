@@ -1,7 +1,7 @@
 package UF2;
 
 public class cFilPrincipal {
-    //MAIN BRANCH
+    //E2-4 CONTEJAR NÚMEROS PARELLS
     public static void main (String [] pArguments) {
         System.out.println ("Fil principal iniciat.");
         System.out.println ("Fil secundari iniciat.");
