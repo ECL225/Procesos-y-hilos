@@ -5,34 +5,43 @@ import java.util.ArrayList;
 //alternativa:
 public class cFil extends Thread {
 
-    int rang;
-    ArrayList<Integer> aIterar = new ArrayList<Integer>();
-    int nMGran;
-    public cFil(int rang, ArrayList<Integer> aIterar) {
-
-        this.aIterar = aIterar;
+    int valor;
+    boolean isPrime;
+    public cFil(int valor) {
+        this.valor = valor;
     }
 
-
-    public int getRang() {
-        return rang;
+    public boolean isPrime() {
+        return isPrime;
     }
 
-    public int getnMGran(){ return nMGran;}
 
     public void run () {
         try {
-            nMGran = 0;
-            //iterar entre els numeros i contar els parells
-            for (int i = 0; i < aIterar.size(); i++) {
-                if (aIterar.get(i) > nMGran){
-                    nMGran = aIterar.get(i);
-                }
-            }
+            isPrime = esPrimo(valor);
         }
         catch (Exception pExcepcio) {
             System.out.println("Interrompent execució procès");
         }
         // System.out.println("Acabant execució procès");
+    }
+    public static boolean esPrimo(int numero) {
+        if (numero <= 1) {
+            return false;
+        }
+        if (numero == 2) {
+            return true;
+        }
+        if (numero % 2 == 0) {
+            return false;
+        }
+
+        for (int i = 3; i <= Math.sqrt(numero); i += 2) {
+            if (numero % i == 0) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
