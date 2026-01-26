@@ -1,37 +1,31 @@
 package UF2;
 
+import java.util.Scanner;
+
 //alternativa: extends Thread
-public class cFil implements Runnable {
+public class cFil extends Thread {
+    private int numFils;
+    private int resultat;
+    private int N;
 
-  String aNomFil;
-  int aTemporitzacio;
-
-  public cFil (String pNomFil) {
-    aTemporitzacio = 500;
-    aNomFil = pNomFil;
+  public cFil (int numFils, int N) {
+      this.numFils = numFils;
+      this.N = N;
   }
 
-  public String gNomFil () {
-    return aNomFil;
-  }
-
-  public void sTemporitzacio (int pTemporitzacio) {
-    aTemporitzacio = pTemporitzacio;
-  }
-
+  @Override
   public void run () {
+      resultat = 0;
 
-    System.out.println("Iniciant execució procés " + aNomFil);
-
-    try {
-      for (int vComptador = 0; vComptador < 10; vComptador ++) {
-        Thread.sleep(aTemporitzacio);
-        System.out.println("Despertant aturada " + vComptador + " procès " + aNomFil);
+      for (int i = 1; i <= N; i++){
+          resultat += i;
       }
-    }
-    catch (InterruptedException pExcepcio) {
-      System.out.println("Interrompent execució procès " + aNomFil);
-    }
-    System.out.println("Acabant execució procès " + aNomFil);
   }
+    public int getResultat(){
+        return resultat;
+    }
+
+    public int getNumFils(){
+      return numFils;
+    }
 }

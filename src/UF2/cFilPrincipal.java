@@ -12,35 +12,30 @@ public class cFilPrincipal {
 
         int[] valors = new int[numFils];
         for (int i = 0; i < numFils; i++){
-            System.out.println("Introdueix en N per el fil " + i);
+            System.out.println("Introdueix en N per el fil " + (i+1));
             valors[i] = scan.nextInt();
         }
 
         Thread[] fils = new Thread[numFils];
+        cFil[] filsObjectes = new cFil[numFils];
 
+        for (int i = 0; i < numFils; i++){
+            filsObjectes[i] = new cFil(i +1, valors[i]);
+            fils[i] = new Thread(filsObjectes[i]);
+            fils[i].start();
+        }
 
-
-        /*System.out.println ("Fil principal iniciat.");
-        System.out.println ("Fil secundari iniciat.");
-
-        cFil vObjecteFil = new cFil ("#1");
-        //alternativa: innecessari
-        Thread vFil = new Thread (vObjecteFil);
-
-        //alternativa: vObjecteFil
-        vFil.start ();
-        System.out.println ("Iniciant execució procés principal");
-
-        try {
-            for (int vComptador = 0; vComptador < 10; vComptador ++) {
-                Thread.sleep(500);
-                System.out.println("Despertant aturada " + vComptador + " procès principal");
+        for (int i = 0; i < numFils; i++){
+            try{
+                fils[i].join();
+            }catch (InterruptedException e){
+                e.printStackTrace();
             }
         }
-        catch (InterruptedException pExcepcio) {
-            System.out.println ("Interrompent execució procès principal");
+
+        for(int i = 0; i < numFils; i++) {
+            System.out.println("Fil: " + filsObjectes[i].getNumFils() + " Resultat: " + filsObjectes[i].getResultat());
         }
-        System.out.println ("Acabant execució procès principal");*/
   }
 
 }
