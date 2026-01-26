@@ -1,37 +1,38 @@
 package UF2;
 
-//alternativa: extends Thread
-public class cFil implements Runnable {
+import java.util.ArrayList;
 
-  String aNomFil;
-  int aTemporitzacio;
+//alternativa:
+public class cFil extends Thread {
 
-  public cFil (String pNomFil) {
-    aTemporitzacio = 500;
-    aNomFil = pNomFil;
-  }
+    int rang;
+    ArrayList<Integer> aIterar = new ArrayList<Integer>();
+    int cParells;
+    public cFil(int rang, ArrayList<Integer> aIterar) {
 
-  public String gNomFil () {
-    return aNomFil;
-  }
-
-  public void sTemporitzacio (int pTemporitzacio) {
-    aTemporitzacio = pTemporitzacio;
-  }
-
-  public void run () {
-
-    System.out.println("Iniciant execució procés " + aNomFil);
-
-    try {
-      for (int vComptador = 0; vComptador < 10; vComptador ++) {
-        Thread.sleep(aTemporitzacio);
-        System.out.println("Despertant aturada " + vComptador + " procès " + aNomFil);
-      }
+        this.aIterar = aIterar;
     }
-    catch (InterruptedException pExcepcio) {
-      System.out.println("Interrompent execució procès " + aNomFil);
+
+
+    public int getRang() {
+        return rang;
     }
-    System.out.println("Acabant execució procès " + aNomFil);
-  }
+
+    public int getcParells (){ return cParells;}
+
+    public void run () {
+        try {
+            cParells=0;
+            //iterar entre els numeros i contar els parells
+            for (int i = 0; i < aIterar.size(); i++) {
+                if (aIterar.get(i)%2 == 0){
+                    cParells++;
+                }
+            }
+        }
+        catch (Exception pExcepcio) {
+          System.out.println("Interrompent execució procès");
+        }
+       // System.out.println("Acabant execució procès");
+    }
 }

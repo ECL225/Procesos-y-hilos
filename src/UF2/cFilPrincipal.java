@@ -22,33 +22,31 @@ public class cFilPrincipal {
             vectorArray.add(rand.nextInt(10000));
         }
         int divResult = tVector/nFils;
-        System.out.println(divResult);
-        for (int i = 0; i < nFils; i+=divResult) {
-
-        }
-
-/*
-        System.out.println ("Fil principal iniciat.");
-        System.out.println ("Fil secundari iniciat.");
-
-        cFil vObjecteFil = new cFil ("#1");
-        //alternativa: innecessari
-        Thread vFil = new Thread (vObjecteFil);
-
-        //alternativa: vObjecteFil
-        vFil.start ();
-        System.out.println ("Iniciant execució procés principal");
-
-        try {
-            for (int vComptador = 0; vComptador < 10; vComptador ++) {
-                Thread.sleep(500);
-                System.out.println("Despertant aturada " + vComptador + " procès principal");
+        System.out.println("Resultat Divisio: "+divResult);
+        ArrayList<cFil> ArrayFils = new ArrayList<>();
+        for (int i = 0; i < nFils; i++) {
+            ArrayList<Integer> nRang = new ArrayList<>();
+            for (int j = 0; j < divResult; j++) {
+                nRang.add(vectorArray.get(j+(i*divResult)));
             }
+            cFil fParell = new cFil(i,nRang);
+            ArrayFils.add(fParell);
         }
-        catch (InterruptedException pExcepcio) {
-            System.out.println ("Interrompent execució procès principal");
+        int nParells = 0;
+        for (int i = 0; i < ArrayFils.size(); i++) {
+            ArrayFils.get(i).start();
         }
-        System.out.println ("Acabant execució procès principal");*/
+        try {
+            for (int i = 0; i < ArrayFils.size(); i++) {
+                ArrayFils.get(i).join();
+                System.out.println("Rang: "+(i*divResult) +"-"+ ((i*divResult)+divResult) + " Parells: "+ArrayFils.get(i).getcParells());
+                nParells += ArrayFils.get(i).getcParells();
+            }
+        }catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println("Nº de parells dins del vector: "+ nParells);
   }
 
 }
