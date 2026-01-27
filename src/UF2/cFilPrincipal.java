@@ -13,18 +13,18 @@ public class cFilPrincipal {
         System.out.println("Indica el tamany del vector:");
         int tVector = scanN.nextInt();
         int nFils = -1;
-        while (nFils >= tVector || nFils == -1) {
+        while (nFils >= tVector || nFils == -1) {// Input de usuari
             System.out.println("Indica el numero de fils(Ha de ser menor o igual al Tamany del vector):");
             nFils = scanN.nextInt();
         }
-        ArrayList<Integer> vectorArray = new ArrayList<Integer>();
+        ArrayList<Integer> vectorArray = new ArrayList<Integer>();// Arraylist de numeros aleatoris
         for (int i = 0; i < tVector; i++) {
             vectorArray.add(rand.nextInt(10000));
         }
-        int divResult = tVector/nFils;
+        int divResult = tVector/nFils;//Calcul de valors
         System.out.println("Resultat Divisio: "+divResult);
-        ArrayList<cFil> ArrayFils = new ArrayList<>();
-        for (int i = 0; i < nFils; i++) {
+        ArrayList<cFil> ArrayFils = new ArrayList<>();// Arraylist dels fils a executar
+        for (int i = 0; i < nFils; i++) {//Creacio e insercio dels fils a executar al arraylist
             ArrayList<Integer> nRang = new ArrayList<>();
             for (int j = 0; j < divResult; j++) {
                 nRang.add(vectorArray.get(j+(i*divResult)));
@@ -32,8 +32,8 @@ public class cFilPrincipal {
             cFil fParell = new cFil(i,nRang);
             ArrayFils.add(fParell);
         }
-        int nParells = 0;
-        for (int i = 0; i < ArrayFils.size(); i++) {
+        int nParells = 0;// variable on es guarden els numeros parells
+        for (int i = 0; i < ArrayFils.size(); i++) {// inicialitzacio dels fils
             ArrayFils.get(i).start();
         }
         try {
