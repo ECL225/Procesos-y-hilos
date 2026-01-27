@@ -10,37 +10,22 @@ public class cFilPrincipal {
         System.out.println("Introdueix el numero de fils que vols crear: ");
         int numFils = scan.nextInt();
 
-        int[] valors = new int[numFils];
+        cFil[] fil = new cFil[numFils];
         for (int i = 0; i < numFils; i++){
-            System.out.println("Introdueix en N per el fil " + i);
-            valors[i] = scan.nextInt();
+            fil[i]=new cFil(i);
+            fil[i].start();
         }
-
-        Thread[] fils = new Thread[numFils];
-
-
-
-        /*System.out.println ("Fil principal iniciat.");
-        System.out.println ("Fil secundari iniciat.");
-
-        cFil vObjecteFil = new cFil ("#1");
-        //alternativa: innecessari
-        Thread vFil = new Thread (vObjecteFil);
-
-        //alternativa: vObjecteFil
-        vFil.start ();
-        System.out.println ("Iniciant execució procés principal");
-
-        try {
-            for (int vComptador = 0; vComptador < 10; vComptador ++) {
-                Thread.sleep(500);
-                System.out.println("Despertant aturada " + vComptador + " procès principal");
+        for (int i = 0; i < numFils; i++){
+            try {
+                fil[i].join();
+            }catch (InterruptedException e){
+                e.printStackTrace();
             }
         }
-        catch (InterruptedException pExcepcio) {
-            System.out.println ("Interrompent execució procès principal");
+
+        for (int i = 0; i < numFils; i++){
+            System.out.println("Fil numero: (" + i + ") fibonacci = " + fil[i].getResultat());
         }
-        System.out.println ("Acabant execució procès principal");*/
   }
 
 }
