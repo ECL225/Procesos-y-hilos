@@ -3,7 +3,7 @@ package UF2;
 import java.util.Scanner;
 
 public class cFilPrincipal {
-    //E2-1 Calcul concurrent sumes parcials
+    //E2-2 Serie de fibonacci concurrent
     public static void main (String [] pArguments) {
         Scanner scan = new Scanner(System.in);
 
