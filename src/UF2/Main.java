@@ -169,17 +169,34 @@ public class Main {
         Scanner scanS = new Scanner(System.in);
         int n, m;
         System.out.println("Introdueix les Files de la matriu " + (matriu + 1));
-        while (!scanN.hasNextInt()) {
-            System.out.println("Error: Introdueix un número enter vàlid");
-            scanN.next();
+        while (true) {
+            // 1. Validamos que sea un número entero
+            while (!scanN.hasNextInt()) {
+                System.out.println("Error: Introdueix un número enter vàlid");
+                scanN.next(); // Limpiar el buffer
+            }
+            n = scanN.nextInt();
+            if (n >= 1 && n <= 20) {
+                break;
+            } else {
+                System.out.println("Error: El número ha de ser major de 1 i menor o igual de 20. Torna a intentar-ho:");
+            }
         }
-        n = scanN.nextInt();
+
         System.out.println("Introdueix les Columnes de la matriu " + (matriu + 1));
-        while (!scanN.hasNextInt()) {
-            System.out.println("Error: Introdueix un número enter vàlid");
-            scanN.next();
+        while (true) {
+            // 1. Validamos que sea un número entero
+            while (!scanN.hasNextInt()) {
+                System.out.println("Error: Introdueix un número enter vàlid");
+                scanN.next(); // Limpiar el buffer
+            }
+            m = scanN.nextInt();
+            if (m >= 1 && m <= 20) {
+                break;
+            } else {
+                System.out.println("Error: El número ha de ser major de 1 i menor o igual de 20. Torna a intentar-ho:");
+            }
         }
-        m = scanN.nextInt();
         int[] FiC = new int[2];
         FiC[0] = n;
         FiC[1] = m;
