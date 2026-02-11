@@ -2,6 +2,10 @@ package UF2;
 
 import UF2.domain.Matriz;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.Scanner;
 
 public class Main {
@@ -21,6 +25,7 @@ public class Main {
                 scanN.next();
             }
             mOpcio = scanN.nextInt();
+            scanN.nextLine();
             switch (mOpcio) {
                 case 1:
                     stepCounter = 0;
@@ -49,6 +54,12 @@ public class Main {
                             matriz1.sValor(i, j, scanN.nextInt());
                         }
                     }
+                    for (int i = 0; i < matriz1.gFiles(); i++){
+                        for (int j = 0; j <matriz1.gColumnes(); j++){
+                            System.out.println(matriz1.gValor(i, j)+ ' ');
+                        }
+                        System.out.println();
+                    }
                     System.out.println("Ara introdueix les dades de la segona ");
                     for (int i = 0; i < matriz2.gFiles(); i++) {
                         for (int j = 0; j <matriz2.gColumnes(); j++){
@@ -60,10 +71,66 @@ public class Main {
                             matriz2.sValor(i, j, scanN.nextInt());
                         }
                     }
+                    for (int i = 0; i < matriz2.gFiles(); i++){
+                        for (int j = 0; j <matriz2.gColumnes(); j++){
+                            System.out.println(matriz2.gValor(i, j)+ ' ');
+                        }
+                        System.out.println();
+                    }
+                    scanN.nextLine();
                     break;
                 case 3:
                     System.out.println("Ara introdueix les dades en un fitxer: ");
+                    System.out.println("Introdueix la ruta del fitxer: ");
+                    String fitxer = scanS.nextLine();
+                    System.out.println("Introdueix la ruta del fitxer 2: ");
+                    String fitxer2 = scanS.nextLine();
 
+                    try(Scanner scanFile = new Scanner(new File(fitxer))){
+                        for (int i = 0; i < matriz1.gFiles(); i++){
+                            for (int j = 0; j < matriz1.gColumnes(); j++){
+                                if (scanFile.hasNextInt()){
+                                    matriz1.sValor(i, j, scanFile.nextInt());
+                                }else {
+                                    System.out.println("Error: Falten dades a la matriu 1");
+                                    return;
+                                }
+                            }
+                        }
+                    }catch (FileNotFoundException e){
+                        e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    try (Scanner scanFile2 = new Scanner(new File(fitxer2))){
+                        for (int i = 0; i < matriz2.gFiles(); i++){
+                            for (int j = 0; j < matriz2.gColumnes(); j++){
+                                if (scanFile2.hasNextInt()){
+                                    matriz2.sValor(i, j, scanFile2.nextInt());
+                                }else {
+                                    System.out.println("Error: Falten dades a la matriu 2");
+                                    return;
+                                }
+                            }
+                        }
+                        for (int i = 0; i <matriz1.gFiles(); i++){
+                            for (int j = 0; j < matriz1.gColumnes(); j++){
+                                System.out.print(matriz1.gValor(i, j) + " ");
+                            }
+                            System.out.println();
+                        }
+                    }catch (FileNotFoundException e){
+                        e.printStackTrace();
+                    }catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("Les dades s'han carregat correctament");
+                    for (int i = 0; i <matriz1.gFiles(); i++){
+                        for (int j = 0; j < matriz1.gColumnes(); j++){
+                            System.out.print(matriz1.gValor(i, j) + " ");
+                        }
+                        System.out.println();
+                    }
                     break;
                 case 0:
                     System.out.println("Bye,Bye");

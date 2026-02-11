@@ -37,6 +37,7 @@ public class Matriz {
   public void setFC(int[] pDades) {
     Files = pDades[0];
     Columnes = pDades[1];
+    aDades = new int[Files][Columnes];
   }
 
 }
