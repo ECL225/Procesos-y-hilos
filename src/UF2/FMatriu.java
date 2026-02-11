@@ -18,7 +18,7 @@ public class FMatriu extends Thread {
 
     void multiplicar (){
         int fila = posicio/matriu2.gColumnes();
-        int columna = posicio % matriu1.gColumnes();
+        int columna = posicio % matriu2.gColumnes();
         int total = 0;
         for (int i = 0; i < matriu1.gColumnes(); i++) {
             total += (matriu1.gValor(fila, i) * matriu2.gValor(i, columna));
