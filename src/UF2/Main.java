@@ -12,7 +12,7 @@ public class Main {
         Matriz matriz1 = new Matriz();
         Matriz matriz2 = new Matriz();
         int mOpcio = 0;
-        int stepCounter = -1;
+        int stepCounter = 0;
         boolean excon = true;
         while (excon) {
             System.out.println("MENU PCINCIPAL  \n [1] Definir Matrius \n [2] Introduir dades manualment \n [3] Introduir dades des d'un arxiu\n [0] Exit");
@@ -23,29 +23,24 @@ public class Main {
             mOpcio = scanN.nextInt();
             switch (mOpcio) {
                 case 1:
+                    stepCounter = 0;
                     if (stepCounter != 2) {
-                        switch (stepCounter) {
-                            case 0:
-                                int[] result1 = preguntarDades(stepCounter % 2);
-                                matriz1.setFC(result1);
-                                stepCounter++;
-                                break;
-                            case 1:
-                                int[] result2 = preguntarDades(stepCounter % 2);
-                                matriz2.setFC(result2);
-                                stepCounter++;
-                                if (matriz1.gColumnes() != matriz2.gFiles()) {
-                                    System.out.println("No has introduit el mateix numeros de columnes en la Matriu 1 i Files en la matriu 2.");
-                                    excon = false;
-                                }
-                                break;
-                            default:
-                                System.out.println("T'has pasat de voltes");
-                                break;
+                        int[] result1 = preguntarDades(stepCounter % 2);
+                        matriz1.setFC(result1);
+                        stepCounter++;
+                        int[] result2 = preguntarDades(stepCounter % 2);
+                        matriz2.setFC(result2);
+                        stepCounter++;
+                        if (matriz1.gColumnes() != matriz2.gFiles()) {
+                            System.out.println("No has introduit el mateix numeros de columnes en la Matriu 1 i Files en la matriu 2.");
+                            excon = false;
+                            }
                         }
-                    }
                     break;
                 case 2:
+                    for (int i = 0; i < matriz1.gFiles()*matriz1.gColumnes(); i++) {
+
+                    }
                     break;
                 case 3:
                     break;
