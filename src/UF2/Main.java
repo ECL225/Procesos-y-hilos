@@ -34,7 +34,7 @@ public class Main {
                         matriz1 = new Matriz(result1[0], result1[1]);
                         stepCounter++;
                         int[] result2 = preguntarDades(stepCounter % 2);
-                        matriz2 = new Matriz(result1[0], result1[1]);
+                        matriz2 = new Matriz(result2[0], result2[1]);
                         stepCounter++;
                         if (matriz1.gColumnes() != matriz2.gFiles()) {
                             System.out.println("No has introduit el mateix numeros de columnes en la Matriu 1 i Files en la matriu 2.");
