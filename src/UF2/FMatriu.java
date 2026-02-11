@@ -1,36 +1,34 @@
 package UF2;
 
-//alternativa: extends Thread
-public class FMatriu implements Runnable {
+import UF2.domain.Matriz;
 
-    String aNomFil;
-    int aTemporitzacio;
+//alternativa: implements Runnable
+public class FMatriu extends Thread {
 
-    public FMatriu(String pNomFil) {
-        aTemporitzacio = 500;
-        aNomFil = pNomFil;
+    int posicio;
+    Matriz matriu1;
+    Matriz matriu2;
+    int resultat;
+
+    public FMatriu(Matriz m1,Matriz m2, int p){
+        matriu1 = m1;
+        matriu2 = m2;
+        posicio = p;
     }
 
-    public String gNomFil() {
-        return aNomFil;
-    }
-
-    public void sTemporitzacio(int pTemporitzacio) {
-        aTemporitzacio = pTemporitzacio;
-    }
-
-    public void run() {
-
-        System.out.println("Iniciant execució procés " + aNomFil);
-
-        try {
-            for (int vComptador = 0; vComptador < 10; vComptador++) {
-                Thread.sleep(aTemporitzacio);
-                System.out.println("Despertant aturada " + vComptador + " procès " + aNomFil);
-            }
-        } catch (InterruptedException pExcepcio) {
-            System.out.println("Interrompent execució procès " + aNomFil);
+    void multiplicar (){
+        int fila = posicio/matriu2.gColumnes();
+        int columna = posicio % matriu1.gColumnes();
+        int total = 0;
+        for (int i = 0; i < matriu1.gColumnes(); i++) {
+            total += (matriu1.gValor(fila, i) * matriu2.gValor(i, columna));
         }
-        System.out.println("Acabant execució procès " + aNomFil);
+        resultat = total;
+    }
+    public int gResultat(){
+        return resultat;
+    }
+    public void run() {
+        multiplicar();
     }
 }

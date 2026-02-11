@@ -6,78 +6,65 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     //EXERCICI 3 SUMA DE MATRIUS
-    static void main(String[] pArguments) {
+    static void main(String[] pArguments) throws InterruptedException {
         Scanner scanN = new Scanner(System.in);
         Scanner scanS = new Scanner(System.in);
-        Matriz matriz1 = new Matriz();
-        Matriz matriz2 = new Matriz();
+        Matriz matriz1 = null;
+        Matriz matriz2 = null;
         int mOpcio = 0;
         int stepCounter = 0;
         boolean excon = true;
         while (excon) {
-            System.out.println("MENU PCINCIPAL  \n [1] Definir Matrius \n [2] Introduir dades manualment \n [3] Introduir dades des d'un arxiu\n [0] Exit");
+            System.out.println("MENU PCINCIPAL  \n [1] Definir Matrius \n [2] Introduir dades manualment \n [3] Introduir dades des d'un arxiu \n [4] Calcular \n [0] Exit");
             while (!scanN.hasNextInt()) {
                 System.out.println("Error: Introdueix un número enter vàlid");
                 scanN.next();
             }
             mOpcio = scanN.nextInt();
-            scanN.nextLine();
             switch (mOpcio) {
                 case 1:
                     stepCounter = 0;
                     if (stepCounter != 2) {
                         int[] result1 = preguntarDades(stepCounter % 2);
-                        matriz1.setFC(result1);
+                        matriz1 = new Matriz(result1[0], result1[1]);
                         stepCounter++;
                         int[] result2 = preguntarDades(stepCounter % 2);
-                        matriz2.setFC(result2);
+                        matriz2 = new Matriz(result1[0], result1[1]);
                         stepCounter++;
                         if (matriz1.gColumnes() != matriz2.gFiles()) {
                             System.out.println("No has introduit el mateix numeros de columnes en la Matriu 1 i Files en la matriu 2.");
                             excon = false;
-                            }
                         }
+                    }
                     break;
                 case 2:
-                    System.out.println("Introdueix les dades de la matriu manualment: ");
-                    for (int i = 0; i < matriz1.gFiles(); i++) {
-                        for (int j = 0; j <matriz1.gColumnes(); j++){
-                            System.out.println("Introdueix les dades manualment: ");
-                            while(!scanN.hasNextInt()){
-                                System.out.println("Error: Introdueix un valor valid");
-                                scanN.next();
+                    if (stepCounter != 0) {
+                        for (int i = 0; i < matriz1.gFiles(); i++) {
+                            for (int j = 0; j < matriz1.gColumnes(); j++) {
+                                System.out.println("Introdueix el numero de la matriu 1 en la fila " + i + " i columna " + j);
+                                while (!scanN.hasNextInt()) {
+                                    System.out.println("Error: Introdueix un número enter vàlid");
+                                    scanN.next();
+                                }
+                                matriz1.sValor(i, j, scanN.nextInt());
                             }
-                            matriz1.sValor(i, j, scanN.nextInt());
                         }
-                    }
-                    for (int i = 0; i < matriz1.gFiles(); i++){
-                        for (int j = 0; j <matriz1.gColumnes(); j++){
-                            System.out.println(matriz1.gValor(i, j)+ ' ');
-                        }
-                        System.out.println();
-                    }
-                    System.out.println("Ara introdueix les dades de la segona ");
-                    for (int i = 0; i < matriz2.gFiles(); i++) {
-                        for (int j = 0; j <matriz2.gColumnes(); j++){
-                            System.out.println("Introdueix les dades manualment: ");
-                            while(!scanN.hasNextInt()){
-                                System.out.println("Error: Introdueix un valor valid");
-                                scanN.next();
+                        for (int i = 0; i < matriz2.gFiles(); i++) {
+                            for (int j = 0; j < matriz2.gColumnes(); j++) {
+                                System.out.println("Introdueix el numero de la matriu 2 en la fila " + i + " i columna " + j);
+                                while (!scanN.hasNextInt()) {
+                                    System.out.println("Error: Introdueix un número enter vàlid");
+                                    scanN.next();
+                                }
+                                matriz2.sValor(i, j, scanN.nextInt());
                             }
-                            matriz2.sValor(i, j, scanN.nextInt());
                         }
                     }
-                    for (int i = 0; i < matriz2.gFiles(); i++){
-                        for (int j = 0; j <matriz2.gColumnes(); j++){
-                            System.out.println(matriz2.gValor(i, j)+ ' ');
-                        }
-                        System.out.println();
-                    }
-                    scanN.nextLine();
                     break;
                 case 3:
                     System.out.println("Ara introdueix les dades en un fitxer: ");
@@ -132,6 +119,24 @@ public class Main {
                         System.out.println();
                     }
                     break;
+                case 4:
+                    ArrayList<FMatriu> lFils = new ArrayList<>();
+                    for (int i = 0; i < matriz1.gFiles() * matriz2.gColumnes(); i++) {
+                        FMatriu mm1 = new FMatriu(matriz1,matriz2,i);
+                        lFils.add(mm1);
+                        mm1.start();
+                    }
+                    for (int i = 0; i < lFils.size(); i++) {
+                        try {
+                            lFils.get(i).join();
+                            int result = lFils.get(i).gResultat();
+                            System.out.println("Posición " + i + " calculada: " + result);
+
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    break;
                 case 0:
                     System.out.println("Bye,Bye");
                     excon = false;
@@ -143,25 +148,6 @@ public class Main {
 
 
         }
-        /*
-        cFil vObjecteFil = new cFil("#1");
-        //alternativa: innecessari
-        Thread vFil = new Thread(vObjecteFil);
-
-        //alternativa: vObjecteFil
-        vFil.start();
-        System.out.println("Iniciant execució procés principal");
-
-        try {
-            for (int vComptador = 0; vComptador < 10; vComptador++) {
-                Thread.sleep(500);
-                System.out.println("Despertant aturada " + vComptador + " procès principal");
-            }
-        } catch (InterruptedException pExcepcio) {
-            System.out.println("Interrompent execució procès principal");
-        }
-        System.out.println("Acabant execució procès principal");
-        */
     }
 
 
