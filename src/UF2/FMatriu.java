@@ -1,12 +1,12 @@
 package UF2;
 
 //alternativa: extends Thread
-public class cFil implements Runnable {
+public class FMatriu implements Runnable {
 
     String aNomFil;
     int aTemporitzacio;
 
-    public cFil(String pNomFil) {
+    public FMatriu(String pNomFil) {
         aTemporitzacio = 500;
         aNomFil = pNomFil;
     }

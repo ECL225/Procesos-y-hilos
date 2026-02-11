@@ -4,7 +4,7 @@ import UF2.domain.Matriz;
 
 import java.util.Scanner;
 
-public class cFilPrincipal {
+public class Main {
     //EXERCICI 3 SUMA DE MATRIUS
     static void main(String[] pArguments) {
         Scanner scanN = new Scanner(System.in);
