@@ -54,6 +54,13 @@ public class Main {
                                 matriz1.sValor(i, j, scanN.nextInt());
                             }
                         }
+                        System.out.println("Matriu 1 mostrada completa: ");
+                        for (int i =0; i < matriz1.gFiles(); i++){
+                            for (int j = 0; j < matriz1.gColumnes(); j++){
+                                System.out.print(matriz1.gValor(i, j)+" ");
+                            }
+                            System.out.println();
+                        }
                         for (int i = 0; i < matriz2.gFiles(); i++) {
                             for (int j = 0; j < matriz2.gColumnes(); j++) {
                                 System.out.println("Introdueix el numero de la matriu 2 en la fila " + i + " i columna " + j);
@@ -63,6 +70,12 @@ public class Main {
                                 }
                                 matriz2.sValor(i, j, scanN.nextInt());
                             }
+                        }
+                        for (int i = 0; i < matriz2.gFiles(); i++){
+                            for (int j = 0; j < matriz2.gColumnes(); j++){
+                                System.out.print(matriz2.gValor(i, j) + " ");
+                            }
+                            System.out.println();
                         }
                     }
                     break;
