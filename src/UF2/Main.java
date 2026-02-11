@@ -38,11 +38,32 @@ public class Main {
                         }
                     break;
                 case 2:
-                    for (int i = 0; i < matriz1.gFiles()*matriz1.gColumnes(); i++) {
-
+                    System.out.println("Introdueix les dades de la matriu manualment: ");
+                    for (int i = 0; i < matriz1.gFiles(); i++) {
+                        for (int j = 0; j <matriz1.gColumnes(); j++){
+                            System.out.println("Introdueix les dades manualment: ");
+                            while(!scanN.hasNextInt()){
+                                System.out.println("Error: Introdueix un valor valid");
+                                scanN.next();
+                            }
+                            matriz1.sValor(i, j, scanN.nextInt());
+                        }
+                    }
+                    System.out.println("Ara introdueix les dades de la segona ");
+                    for (int i = 0; i < matriz2.gFiles(); i++) {
+                        for (int j = 0; j <matriz2.gColumnes(); j++){
+                            System.out.println("Introdueix les dades manualment: ");
+                            while(!scanN.hasNextInt()){
+                                System.out.println("Error: Introdueix un valor valid");
+                                scanN.next();
+                            }
+                            matriz2.sValor(i, j, scanN.nextInt());
+                        }
                     }
                     break;
                 case 3:
+                    System.out.println("Ara introdueix les dades en un fitxer: ");
+
                     break;
                 case 0:
                     System.out.println("Bye,Bye");
