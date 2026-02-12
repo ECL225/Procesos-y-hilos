@@ -28,6 +28,9 @@ public class FMatriu extends Thread {
     public int gResultat(){
         return resultat;
     }
+
+    public int gPosicio() {return posicio;}
+
     public void run() {
         multiplicar();
     }

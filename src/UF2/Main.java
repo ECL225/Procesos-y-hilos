@@ -2,16 +2,16 @@ package UF2;
 
 import UF2.domain.Matriz;
 
-import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     //EXERCICI 3 SUMA DE MATRIUS
-    static void main(String[] pArguments) throws InterruptedException {
+     public static void main(String[] pArguments) throws InterruptedException {
         Scanner scanN = new Scanner(System.in);
         Scanner scanS = new Scanner(System.in);
         Matriz matriz1 = null;
@@ -19,6 +19,33 @@ public class Main {
         int mOpcio = 0;
         int stepCounter = 0;
         boolean excon = true;
+
+         if (pArguments.length == 4) {
+             try {
+                 int f1 = Integer.parseInt(pArguments[0]);
+                 int c1 = Integer.parseInt(pArguments[1]);
+                 int f2 = Integer.parseInt(pArguments[2]);
+                 int c2 = Integer.parseInt(pArguments[3]);
+
+                 if (f1 < 1 || f1 > 20 || c1 < 1 || c1 > 20 || f2 < 1 || f2 > 20 || c2 < 1 || c2 > 20) {
+                     System.out.println("Error: Els tamanys han d'estar entre 1 i 20");
+                     return;
+                 }
+
+                 if (c1 != f2) {
+                     System.out.println("Error: El numero de columnes de la matriu 1 ha de ser igual al numero de files de la matriu 2");
+                     return;
+                 }
+
+                 matriz1 = new Matriz(f1, c1);
+                 matriz2 = new Matriz(f2, c2);
+                 stepCounter = 2;
+
+             } catch (NumberFormatException e) {
+                 System.out.println("Error: Els parametres no son valids");
+                 return;
+             }
+         }
         while (excon) {
             System.out.println("MENU PCINCIPAL  \n [1] Definir Matrius \n [2] Introduir dades manualment \n [3] Introduir dades des d'un arxiu \n [4] Calcular \n [0] Exit");
             while (!scanN.hasNextInt()) {
@@ -133,6 +160,7 @@ public class Main {
                     }
                     break;
                 case 4:
+                    Matriz result = new Matriz(matriz1.gFiles(), matriz2.gColumnes());
                     ArrayList<FMatriu> lFils = new ArrayList<>();
                     for (int i = 0; i < matriz1.gFiles() * matriz2.gColumnes(); i++) {
                         FMatriu mm1 = new FMatriu(matriz1,matriz2,i);
@@ -142,10 +170,43 @@ public class Main {
                     for (int i = 0; i < lFils.size(); i++) {
                         try {
                             lFils.get(i).join();
-                            int result = lFils.get(i).gResultat();
-                            System.out.println("Posición " + i + " calculada: " + result);
+
+                            int pos = lFils.get(i).gPosicio();
+                            int valor = lFils.get(i).gResultat();
+
+                            int fila = pos / matriz2.gColumnes();
+                            int columna = pos % matriz2.gColumnes();
+
+                            result.sValor(fila, columna, valor);
+                            System.out.println("Posición " + i + " calculada: " + valor);
 
                         } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    for (int i = 0; i < result.gFiles(); i++){
+                        for (int j = 0; j < result.gColumnes(); j++){
+                            System.out.print(result.gValor(i, j) + " ");
+                        }
+                        System.out.println();
+                    }
+                    System.out.println("Vols guardar la matriu a un arxiu?: ");
+                    System.out.println("Si / No");
+                    String resposta = scanS.nextLine();
+                    if (resposta.equalsIgnoreCase("si")){
+                        System.out.println("Introdueix la ruta del arxiu on guardar la matriu:");
+                        String ruta = scanS.nextLine();
+                        try (FileWriter fw = new FileWriter(ruta);
+                             BufferedWriter bw = new BufferedWriter(fw)){
+                            for (int i = 0; i < result.gFiles(); i++) {
+                                for (int j = 0; j < result.gColumnes(); j++) {
+                                    bw.write(result.gValor(i, j) + " ");
+                                }
+                                bw.newLine();
+                            }
+                            bw.flush();
+                            System.out.println("Matriu guardada correctament en "+ ruta);
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
