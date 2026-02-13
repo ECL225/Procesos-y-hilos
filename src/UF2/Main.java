@@ -27,6 +27,10 @@ public class Main {
                  int f2 = Integer.parseInt(pArguments[2]);
                  int c2 = Integer.parseInt(pArguments[3]);
 
+                 if (f1 < 1 || f1 > 20 || c1 < 1 || c1 > 20 || f2 < 1 || f2 > 20 || c2 < 1 || c2 > 20) {
+                     System.out.println("Error: Els tamanys han d'estar entre 1 i 20");
+                     return;
+                 }
                  if (c1 != f2) {
                      System.out.println("Error: El numero de columnes de la matriu 1 ha de ser igual al numero de files de la matriu 2");
                      return;
