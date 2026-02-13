@@ -229,10 +229,9 @@ public class Main {
         int n, m;
         System.out.println("Introdueix les Files de la matriu " + (matriu + 1));
         while (true) {
-            // 1. Validamos que sea un número entero
             while (!scanN.hasNextInt()) {
                 System.out.println("Error: Introdueix un número enter vàlid");
-                scanN.next(); // Limpiar el buffer
+                scanN.next();
             }
             n = scanN.nextInt();
             if (n >= 1 && n <= 20) {
@@ -244,10 +243,9 @@ public class Main {
 
         System.out.println("Introdueix les Columnes de la matriu " + (matriu + 1));
         while (true) {
-            // 1. Validamos que sea un número entero
             while (!scanN.hasNextInt()) {
                 System.out.println("Error: Introdueix un número enter vàlid");
-                scanN.next(); // Limpiar el buffer
+                scanN.next();
             }
             m = scanN.nextInt();
             if (m >= 1 && m <= 20) {
