@@ -191,8 +191,7 @@ public class Main {
                     if (resposta.equalsIgnoreCase("si")){
                         System.out.println("Introdueix la ruta del arxiu on guardar la matriu:");
                         String ruta = scanS.nextLine();
-                        try (FileWriter fw = new FileWriter(ruta);
-                             BufferedWriter bw = new BufferedWriter(fw)){
+                        try (BufferedWriter bw = new BufferedWriter(new FileWriter(ruta))){
                             for (int i = 0; i < result.gFiles(); i++) {
                                 for (int j = 0; j < result.gColumnes(); j++) {
                                     bw.write(result.gValor(i, j) + " ");
