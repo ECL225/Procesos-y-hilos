@@ -20,7 +20,7 @@ public class Main {
         int stepCounter = 0;
         boolean excon = true;
 
-         if (pArguments.length == 4) {
+         if (!(pArguments.length < 4 && pArguments.length > 4)) {
              try {
                  int f1 = Integer.parseInt(pArguments[0]);
                  int c1 = Integer.parseInt(pArguments[1]);
@@ -29,10 +29,12 @@ public class Main {
 
                  if (f1 < 1 || f1 > 20 || c1 < 1 || c1 > 20 || f2 < 1 || f2 > 20 || c2 < 1 || c2 > 20) {
                      System.out.println("Error: Els tamanys han d'estar entre 1 i 20");
+                     excon = false;
                      return;
                  }
                  if (c1 != f2) {
                      System.out.println("Error: El numero de columnes de la matriu 1 ha de ser igual al numero de files de la matriu 2");
+                     excon = false;
                      return;
                  }
 
@@ -42,6 +44,7 @@ public class Main {
 
              } catch (NumberFormatException e) {
                  System.out.println("Error: Els parametres no son valids");
+                 excon = false;
                  return;
              }
          }
